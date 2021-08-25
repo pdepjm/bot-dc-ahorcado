@@ -14,7 +14,14 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
   client.channels.cache
     .get(canalDelJuego)
-    .send("TODO: Hacer la presentación")
+    .send(`
+Vamos a jugar al ahorcado!
+Para comunicarse conmigo deberan enviarme mensajes, estos son los que entiendo: 
+- **frase** -> Responderé con la frase actual, si descubren letras aparecera aquí.
+- **descubrir: x** -> x = una letra ; Si la letra esta en la frase ahora no estará mas oculta, si no esta la frase perederán una vida!
+- **horca** -> Responderé con la cantidad de vidas actual, si estan ahorcados ya no podran descubrir ninguna letra!
+- **esLaFrase: una frase** -> Responderé "Si" o "No" dependiendo de si adivinaron la frase o no.
+    `)
 })
 
 
