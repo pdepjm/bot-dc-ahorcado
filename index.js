@@ -1,11 +1,11 @@
 const { Client, Intents } = require('discord.js')
-const { token } = require('./config.json')
+const { token, channelId } = require('./config.json')
 const { Ahorcado } = require('./ahorcado')
 const { proximaFrase } = require('./frases')
 const { esLetra } = require('./utils')
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
-const canalDelJuego = '879962742390423585'
+const canalDelJuego = channelId
 
 let pings = 0
 let ahorcado = new Ahorcado('pdep') // TODO: Armar las frases / palabras
