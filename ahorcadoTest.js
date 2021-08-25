@@ -28,9 +28,9 @@ describe('Ahorcado', () => {
       assert.strictEqual(ahorcado.frase(), '¿**a **a**!')
     )
 
-    it('cantidad de letras erradas', () => {
+    it('cantidad de letras erradas', () =>
       assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 0)
-    })
+    )
   })
 
   describe('al descubrir una letra incorrecta', () => {
@@ -41,9 +41,9 @@ describe('Ahorcado', () => {
     it('frase', () =>
       assert.strictEqual(ahorcado.frase(), '¿*** *****!')
     )
-    it('cantidad de letras erradas', () => {
+    it('cantidad de letras erradas', () => 
       assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 1)
-    })
+    )
   })
 
   describe('es la frase', () => {
@@ -62,7 +62,28 @@ describe('Ahorcado', () => {
     assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 1)
   })
 
-  it('horca dibuja', () => {
+  it('horca dibuja', () =>
     assert.strictEqual(ahorcado.horca(),imagenSegunLetrasErradas(0))
+  )
+
+  describe('perdio', () => {
+    beforeEach(() => {
+      ahorcado.descubrir('z')      
+      ahorcado.descubrir('x')      
+      ahorcado.descubrir('y')      
+      ahorcado.descubrir('w')      
+      ahorcado.descubrir('m')      
+      ahorcado.descubrir('l')
+      ahorcado.descubrir('o')
+    })
+    it('si erra mas letras que imagenes pierde', () =>      
+      assert.ok(ahorcado._perdio())
+    )
+
+    it('si perdio descubrir no hace nada', () => {
+      ahorcado.descubrir('a')
+      assert.strictEqual(ahorcado.frase(), '¿*** *****!')
+    })
   })
+
 })

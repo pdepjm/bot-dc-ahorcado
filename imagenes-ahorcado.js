@@ -65,7 +65,7 @@ function imagenSegunLetrasErradas(cantidadLetrasErradas){
     return IMAGENES_AHORCADO[cantidadLetrasErradas]
 }
 
-module.exports = {imagenSegunLetrasErradas}
+module.exports = { imagenSegunLetrasErradas, IMAGENES_AHORCADO }
 
 
 

@@ -1,4 +1,4 @@
-const {imagenSegunLetrasErradas} = require('./imagenes-ahorcado')
+const {imagenSegunLetrasErradas, IMAGENES_AHORCADO} = require('./imagenes-ahorcado')
 
 class Ahorcado {
   letras = []
@@ -8,8 +8,12 @@ class Ahorcado {
   }
 
   descubrir(letra) {
-    if (this._descubrio(letra)) return
+    if (this._descubrio(letra) || this._perdio()) return
     this.letras.push(letra)
+  }
+
+  _perdio() {
+    return this._cantidadDeLetrasErradas() >= IMAGENES_AHORCADO.length
   }
 
   _descubrio(letra) {
