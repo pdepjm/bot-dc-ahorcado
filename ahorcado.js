@@ -1,3 +1,5 @@
+const {imagenSegunLetrasErradas} = require('./imagenes-ahorcado')
+
 class Ahorcado {
   letras = []
 
@@ -30,8 +32,13 @@ class Ahorcado {
     return [' ', '¡', '!', '¿', '?'].includes(caracter)
   }
 
-  horca() {
-    return this.letras.filter(letra => !this._contiene(letra)).length
+  horca() {    
+    return imagenSegunLetrasErradas(this._cantidadDeLetrasErradas())
+  }
+
+  _cantidadDeLetrasErradas() {
+    const letrasErradas = this.letras.filter(letra => !this._contiene(letra))
+    return letrasErradas.length
   }
 
   _contiene(letra) {

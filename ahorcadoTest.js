@@ -1,5 +1,6 @@
 const assert = require('assert')
 const { Ahorcado } = require('./ahorcado')
+const {imagenSegunLetrasErradas} = require('./imagenes-ahorcado')
 
 describe('Ahorcado', () => {
   const FRASE = '¿Una frase!'
@@ -14,7 +15,7 @@ describe('Ahorcado', () => {
       assert.strictEqual(ahorcado.frase(), '¿*** *****!')
     )
     it('horca', () =>
-      assert.strictEqual(ahorcado.horca(), 0)
+      assert.strictEqual(ahorcado._cantidadDeLetrasErradas(),0)
     )
   })
 
@@ -26,9 +27,10 @@ describe('Ahorcado', () => {
     it('frase', () =>
       assert.strictEqual(ahorcado.frase(), '¿**a **a**!')
     )
-    it('horca', () =>
-      assert.strictEqual(ahorcado.horca(), 0)
-    )
+
+    it('cantidad de letras erradas', () => {
+      assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 0)
+    })
   })
 
   describe('al descubrir una letra incorrecta', () => {
@@ -39,9 +41,9 @@ describe('Ahorcado', () => {
     it('frase', () =>
       assert.strictEqual(ahorcado.frase(), '¿*** *****!')
     )
-    it('horca', () =>
-      assert.strictEqual(ahorcado.horca(), 1)
-    )
+    it('cantidad de letras erradas', () => {
+      assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 1)
+    })
   })
 
   describe('es la frase', () => {
@@ -57,6 +59,10 @@ describe('Ahorcado', () => {
   it('descubrir la misma letra no hace nada', () => {
     ahorcado.descubrir('z')
     ahorcado.descubrir('z')
-    assert.strictEqual(ahorcado.horca(), 1)
+    assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 1)
+  })
+
+  it('horca dibuja', () => {
+    assert.strictEqual(ahorcado.horca(),imagenSegunLetrasErradas(0))
   })
 })

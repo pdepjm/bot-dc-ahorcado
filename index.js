@@ -37,7 +37,7 @@ function nuevoMensaje(mensaje) {
       return formatearComoCodigo(ahorcado.frase())
 
     case 'horca':
-      return ahorcado.horca().toString() // TODO: Dibujar
+      return ahorcado.horca()
 
     case 'descubrir:':
       return ahorcado.descubrir(parametro)
