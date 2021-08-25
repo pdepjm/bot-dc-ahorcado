@@ -1,7 +1,7 @@
 const assert = require('assert')
-const { Ahorcado } = require('./ahorcado')
-const { FRASES, proximaFrase } = require('./frases')
-const { imagenSegunLetrasErradas } = require('./imagenes-ahorcado')
+const { Ahorcado } = require('../ahorcado')
+const { FRASES, proximaFrase } = require('../frases')
+const { imagenSegunLetrasErradas } = require('../imagenes-ahorcado')
 
 describe('Ahorcado', () => {
   const FRASE = '¿Una frase!'

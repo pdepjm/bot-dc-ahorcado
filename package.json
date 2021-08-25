@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "deploy-commands": "node deploy-commands.js",
-    "test": "mocha ahorcadoTest.js"
+    "test": "mocha tests --recursive"
   },
   "repository": {
     "type": "git",
