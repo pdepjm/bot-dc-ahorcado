@@ -1,6 +1,7 @@
 const { Client, Intents } = require('discord.js')
 const { token } = require('./config.json')
 const { Ahorcado } = require('./ahorcado')
+const { proximaFrase } =require('./frases')
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
 const canalDelJuego = '879962742390423585'
@@ -46,7 +47,7 @@ function nuevoMensaje(mensaje) {
       return ahorcado.esLaFrase(parametro) ? 'Sí' : 'No'
 
     case 'reset':
-      ahorcado = new Ahorcado('Otra palabra') // TODO
+      ahorcado = new Ahorcado(proximaFrase())
       return
 
     default:

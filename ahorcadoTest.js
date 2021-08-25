@@ -1,6 +1,7 @@
 const assert = require('assert')
 const { Ahorcado } = require('./ahorcado')
-const {imagenSegunLetrasErradas} = require('./imagenes-ahorcado')
+const { FRASES, proximaFrase } = require('./frases')
+const { imagenSegunLetrasErradas } = require('./imagenes-ahorcado')
 
 describe('Ahorcado', () => {
   const FRASE = '¿Una frase!'
@@ -86,4 +87,7 @@ describe('Ahorcado', () => {
     })
   })
 
+  it('la proxima frase es una aleatoria de la lista de frases', () => 
+    assert.ok(FRASES.includes(proximaFrase()))
+  )
 })
