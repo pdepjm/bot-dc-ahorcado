@@ -17,14 +17,17 @@ class Ahorcado {
   frase() { 
     let frase = ''
     for (const caracter of this.adivinanza) {
-      // TODO: Contemplar espacios?
-      if (this._descubrio(caracter.toLowerCase())) {
+      if (this._descubrio(caracter.toLowerCase()) || this._esCaracterEspecial(caracter)) {
         frase += caracter
       } else {
         frase += '*'
       }
     }
     return frase
+  }
+
+  _esCaracterEspecial(caracter) {
+    return [' ', '¡', '!', '¿', '?'].includes(caracter)
   }
 
   horca() {
