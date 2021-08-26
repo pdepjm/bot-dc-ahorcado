@@ -1,6 +1,7 @@
 const { Client, Intents } = require('discord.js')
 const { token, channelId } = require('./config.json')
 const { Ahorcado } = require('./ahorcado')
+const { dibujarHorca } = require('./imagenes-ahorcado')
 const { proximaFrase } = require('./frases')
 const { esLetra } = require('./utils')
 
@@ -46,7 +47,7 @@ function nuevoMensaje(mensaje) {
       return formatearComoCodigo(ahorcado.frase())
 
     case 'horca':
-      return ahorcado.horca()
+      return dibujarHorca(ahorcado.horca())
 
     case 'descubrir:':
       if(!esLetra(parametro)) { return }

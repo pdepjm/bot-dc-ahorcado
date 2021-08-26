@@ -1,22 +1,22 @@
 const assert = require('assert')
 const { Ahorcado } = require('../ahorcado')
 const { FRASES, proximaFrase } = require('../frases')
-const { imagenSegunLetrasErradas } = require('../imagenes-ahorcado')
 
 describe('Ahorcado', () => {
-  const FRASE = '¿Una frase!'
+  const ADIVINANZA = '¿Una frase!'
+  const FRASE_INICIAL = '¿*** *****!'
   let ahorcado
 
   beforeEach(() => {
-    ahorcado = new Ahorcado(FRASE)
+    ahorcado = new Ahorcado(ADIVINANZA)
   })
 
   describe('al iniciar', () => {
     it('frase', () =>
-      assert.strictEqual(ahorcado.frase(), '¿*** *****!')
+      assert.strictEqual(ahorcado.frase(), FRASE_INICIAL)
     )
     it('horca', () =>
-      assert.strictEqual(ahorcado._cantidadDeLetrasErradas(),0)
+      assert.strictEqual(ahorcado.horca(),0)
     )
   })
 
@@ -28,9 +28,8 @@ describe('Ahorcado', () => {
     it('frase', () =>
       assert.strictEqual(ahorcado.frase(), '¿**a **a**!')
     )
-
-    it('cantidad de letras erradas', () =>
-      assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 0)
+    it('horca', () =>
+      assert.strictEqual(ahorcado.horca(), 0)
     )
   })
 
@@ -40,10 +39,10 @@ describe('Ahorcado', () => {
     })
 
     it('frase', () =>
-      assert.strictEqual(ahorcado.frase(), '¿*** *****!')
+      assert.strictEqual(ahorcado.frase(), FRASE_INICIAL)
     )
-    it('cantidad de letras erradas', () => 
-      assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 1)
+    it('horca', () => 
+      assert.strictEqual(ahorcado.horca(), 1)
     )
   })
 
@@ -60,12 +59,8 @@ describe('Ahorcado', () => {
   it('descubrir la misma letra no hace nada', () => {
     ahorcado.descubrir('z')
     ahorcado.descubrir('z')
-    assert.strictEqual(ahorcado._cantidadDeLetrasErradas(), 1)
+    assert.strictEqual(ahorcado.horca(), 1)
   })
-
-  it('horca dibuja', () =>
-    assert.strictEqual(ahorcado.horca(),imagenSegunLetrasErradas(0))
-  )
 
   describe('perdio', () => {
     beforeEach(() => {
@@ -77,13 +72,13 @@ describe('Ahorcado', () => {
       ahorcado.descubrir('l')
       ahorcado.descubrir('o')
     })
+
     it('si erra mas letras que imagenes pierde', () =>      
       assert.ok(ahorcado._perdio())
     )
-
     it('si perdio descubrir no hace nada', () => {
       ahorcado.descubrir('a')
-      assert.strictEqual(ahorcado.frase(), '¿*** *****!')
+      assert.strictEqual(ahorcado.frase(), FRASE_INICIAL)
     })
   })
 

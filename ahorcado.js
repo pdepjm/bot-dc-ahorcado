@@ -1,4 +1,6 @@
-const {imagenSegunLetrasErradas, IMAGENES_AHORCADO} = require('./imagenes-ahorcado')
+const { IMAGENES_AHORCADO } = require('./imagenes-ahorcado')
+
+const MAX_CANTIDAD_DE_VIDAS = IMAGENES_AHORCADO.length
 
 class Ahorcado {
   letras = []
@@ -13,14 +15,14 @@ class Ahorcado {
   }
 
   _perdio() {
-    return this._cantidadDeLetrasErradas() >= IMAGENES_AHORCADO.length
+    return this.horca() >= MAX_CANTIDAD_DE_VIDAS
   }
 
   _descubrio(letra) {
     return this.letras.includes(letra)
   }
 
-  frase() { 
+  frase() {
     let frase = ''
     for (const caracter of this.adivinanza) {
       if (this._descubrio(caracter.toLowerCase()) || this._esCaracterEspecial(caracter)) {
@@ -36,11 +38,7 @@ class Ahorcado {
     return [' ', '¡', '!', '¿', '?'].includes(caracter)
   }
 
-  horca() {    
-    return imagenSegunLetrasErradas(this._cantidadDeLetrasErradas())
-  }
-
-  _cantidadDeLetrasErradas() {
+  horca() {
     const letrasErradas = this.letras.filter(letra => !this._contiene(letra))
     return letrasErradas.length
   }

@@ -11,7 +11,7 @@ const FRASES = [
     'recursividad',
     'no maten gatitos',
     'multiples respuestas no son listas',
-    'dividir en subtareas'
+    'dividir en subtareas',
 ]
 
 function proximaFrase(){

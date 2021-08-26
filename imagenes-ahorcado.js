@@ -61,11 +61,11 @@ function convertirABloqueDeCodigo(mensaje){
     return `\`\`\`\n${mensaje}\n\`\`\``
 }
 
-function imagenSegunLetrasErradas(cantidadLetrasErradas){
+function dibujarHorca(cantidadLetrasErradas){
     return IMAGENES_AHORCADO[cantidadLetrasErradas]
 }
 
-module.exports = { imagenSegunLetrasErradas, IMAGENES_AHORCADO }
+module.exports = { dibujarHorca, IMAGENES_AHORCADO }
 
 
 
