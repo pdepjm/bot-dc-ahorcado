@@ -1,6 +1,6 @@
 const { IMAGENES_AHORCADO } = require('./imagenes-ahorcado')
 
-const MAX_CANTIDAD_DE_VIDAS = IMAGENES_AHORCADO.length
+const MAX_CANTIDAD_DE_VIDAS = IMAGENES_AHORCADO.length - 1
 
 class Ahorcado {
   letras = []

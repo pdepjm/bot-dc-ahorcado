@@ -3,26 +3,41 @@ const { token, channelId } = require('./config.json')
 const { Ahorcado } = require('./ahorcado')
 const { dibujarHorca } = require('./imagenes-ahorcado')
 const { proximaFrase } = require('./frases')
-const { esLetra } = require('./utils')
+const { esLetra, formatearComoBloqueDeCodigo, formatearComoCodigo, formatearComoParam, formatearComoImportante } = require('./utils')
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
 const canalDelJuego = channelId
 
 let pings = 0
-let ahorcado = new Ahorcado('pdep') // TODO: Armar las frases / palabras
+let ahorcado
+
+function juegoNuevo() {
+  ahorcado = new Ahorcado(proximaFrase())
+}
+
+const mensajeNoEntendido = mensaje => ({
+  embeds: [{
+    color: 15158332,
+    title: `No entiendo el mensaje '${mensaje}'.`
+  }]
+})
+
+const mensajeInicial = `
+Vamos a jugar al ahorcado!
+Para comunicarse conmigo deberan ${formatearComoImportante('enviarme mensajes')}, estos son los que entiendo: 
+- ${formatearComoCodigo('frase')} -> Responderé con la frase actual, si descubren letras aparecera aquí.
+- ${formatearComoCodigo('descubrir:')}${formatearComoParam(formatearComoCodigo('letra'))} -> Si la letra está en la frase ahora no estará mas oculta, ¡si no perederán una vida en la horca!
+- ${formatearComoCodigo('horca')} -> Responderé con la cantidad de vidas actual, si llegan a ser ahorcados ya no podran descubrir ninguna letra!
+- ${formatearComoCodigo('esLaFrase:')}${formatearComoParam(formatearComoCodigo('unaFrase'))} -> Responderé si adivinaron la frase o no.
+- ${formatearComoCodigo('reset')} -> Crea una nueva partida.
+`
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
+  juegoNuevo()
   client.channels.cache
     .get(canalDelJuego)
-    .send(`
-Vamos a jugar al ahorcado!
-Para comunicarse conmigo deberan enviarme mensajes, estos son los que entiendo: 
-- **frase** -> Responderé con la frase actual, si descubren letras aparecera aquí.
-- **descubrir: x** -> x = una letra ; Si la letra esta en la frase ahora no estará mas oculta, si no esta la frase perederán una vida!
-- **horca** -> Responderé con la cantidad de vidas actual, si estan ahorcados ya no podran descubrir ninguna letra!
-- **esLaFrase: una frase** -> Responderé "Si" o "No" dependiendo de si adivinaron la frase o no.
-    `)
+    .send(mensajeInicial)
 })
 
 
@@ -41,38 +56,29 @@ function nuevoMensaje(mensaje) {
   switch (comando) {
     case 'ping':
       pings++
-      return `Pong! #${n}`
+      return `Pong! #${pings}`
 
     case 'frase':
       return formatearComoCodigo(ahorcado.frase())
 
     case 'horca':
-      return dibujarHorca(ahorcado.horca())
+      return formatearComoBloqueDeCodigo(dibujarHorca(ahorcado.horca()))
 
     case 'descubrir:':
-      if(!esLetra(parametro)) { return }
+      if (!esLetra(parametro)) { return mensajeNoEntendido(mensaje) }
       return ahorcado.descubrir(parametro)
 
     case 'esLaFrase:':
       return ahorcado.esLaFrase(parametro) ? 'Sí' : 'No'
 
     case 'reset':
-      ahorcado = new Ahorcado(proximaFrase())
-      return
+      return juegoNuevo()
 
     default:
-      return {
-        embeds: [{
-          color: 15158332,
-          title: `No entiendo el mensaje '${mensaje}'.`
-        }]
-      }
+      return mensajeNoEntendido(mensaje)
   }
 }
 
-function formatearComoCodigo(mensaje) {
-  return `\`${mensaje}\``
-}
 
 // client.on('interactionCreate', async interaction => {
 //   console.log({ interaction })
